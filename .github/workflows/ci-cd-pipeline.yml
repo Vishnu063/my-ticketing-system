@@ -1,0 +1,61 @@
+name: CI/CD Pipeline to GitHub Pages
+
+# This workflow will run every time you push new code to the "main" branch
+on:
+  push:
+    branches: [ "main" ]
+
+# We are giving the workflow permission to write to the repository (needed for deployment)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Job 1: Build and Test (this is the "CI" or Continuous Integration part)
+  build-and-test:
+    runs-on: ubuntu-latest # The workflow runs on a virtual machine provided by GitHub
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 # This step gets your code from the repository
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Validate HTML # A simple test to check if our main file exists
+        run: |
+          echo "Checking if the website's main file exists..."
+          if [ -f "index.html" ]; then
+            echo "✅ Success: index.html found! Test passed."
+          else
+            echo "❌ Error: index.html is missing. Build failed!"
+            exit 1 # This will fail the workflow and stop the deployment
+          fi
+
+  # Job 2: Deploy (this is the "CD" or Continuous Deployment part)
+  deploy:
+    # This job only runs if the build-and-test job was successful
+    needs: build-and-test
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # This gets the URL of your live site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.' # This means "upload everything in the root directory"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 # This is the step that actually deploys the site
+
+        
