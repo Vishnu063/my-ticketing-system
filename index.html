@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuxuryStay Hotel Management</title>
+    <title>Missing My Concentrix Friends</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -17,187 +17,134 @@
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: #fff;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 20px;
         }
 
         header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            flex-direction: column;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
+            margin-bottom: 20px;
         }
 
         .logo i {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #ffcb57;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         .logo h1 {
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 800px;
         }
 
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 15px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .dashboard {
+        .memories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
+        .memory-card {
             background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .memory-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .card-header h2 {
-            font-size: 1.5rem;
-        }
-
-        .card-header i {
-            font-size: 2rem;
+        .memory-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
             color: #ffcb57;
         }
 
-        .stat {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 10px 0;
+        .memory-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
         }
 
-        .room-list {
-            list-style: none;
-        }
-
-        .room-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .room-item:last-child {
-            border-bottom: none;
-        }
-
-        .room-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .room-number {
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .room-status {
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .status-available {
-            background: rgba(76, 175, 80, 0.3);
-            color: #a5d6a7;
-        }
-
-        .status-occupied {
-            background: rgba(244, 67, 54, 0.3);
-            color: #ef9a9a;
-        }
-
-        .status-cleaning {
-            background: rgba(33, 150, 243, 0.3);
-            color: #90caf9;
-        }
-
-        .btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 50px;
-            background: #ffcb57;
-            color: #333;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #ffd700;
-            transform: translateY(-2px);
-        }
-
-        .main-content {
+        .photo-gallery {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .booking-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+        .photo {
+            height: 150px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 3rem;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo:hover {
+            transform: scale(1.05);
+        }
+
+        .message-form {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
         .form-title {
             margin-bottom: 20px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
 
@@ -214,82 +161,93 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            text-align: left;
         }
 
-        .form-group input, .form-group select {
+        .form-group textarea {
             width: 100%;
-            padding: 12px 20px;
+            padding: 15px;
             border: none;
-            border-radius: 50px;
+            border-radius: 10px;
             background: rgba(255, 255, 255, 0.2);
             color: #fff;
             font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group textarea:focus {
             outline: none;
             background: rgba(255, 255, 255, 0.3);
         }
 
-        .guest-list {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .guest-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .guest-item:last-child {
-            border-bottom: none;
-        }
-
-        .guest-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .guest-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
             background: #ffcb57;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            font-size: 1.2rem;
             color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        @media (max-width: 900px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
+        .btn:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .quote {
+            font-style: italic;
+            margin: 20px 0;
+            padding: 20px;
+            border-left: 4px solid #ffcb57;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0 10px 10px 0;
+            text-align: left;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 20px;
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
             }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .dashboard {
+        }
+
+        @media (max-width: 480px) {
+            .photo-gallery {
                 grid-template-columns: 1fr;
             }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
@@ -297,189 +255,133 @@
     <div class="container">
         <header>
             <div class="logo">
-                <i class="fas fa-hotel"></i>
-                <h1>LuxuryStay Manager</h1>
+                <i class="fas fa-heart heart"></i>
+                <h1>Missing My Concentrix Friends</h1>
             </div>
-            <div class="nav-links">
-                <a href="#" class="active">Dashboard</a>
-                <a href="#">Rooms</a>
-                <a href="#">Bookings</a>
-                <a href="#">Guests</a>
-                <a href="#">Reports</a>
-            </div>
+            <p class="message">
+                Though I've moved on from Concentrix, the memories and friendships will always remain in my heart.
+            </p>
         </header>
 
-        <div class="dashboard">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Occupancy Rate</h2>
-                    <i class="fas fa-bed"></i>
-                </div>
-                <div class="stat">78%</div>
-                <p>132/170 rooms occupied</p>
+        <div class="quote">
+            "The pain of missing you is a beautiful reminder of the joy of our friendship."
+        </div>
+
+        <div class="memories">
+            <div class="memory-card">
+                <i class="fas fa-coffee"></i>
+                <h3>Coffee Breaks</h3>
+                <p>Those endless cups of coffee and conversations</p>
             </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Revenue</h2>
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="stat">$24,560</div>
-                <p>This month</p>
+            <div class="memory-card">
+                <i class="fas fa-laugh"></i>
+                <h3>Laughter</h3>
+                <p>Jokes that made tough days easier</p>
             </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Guests</h2>
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat">214</div>
-                <p>Currently staying</p>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Check-ins</h2>
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-                <div class="stat">18</div>
-                <p>Expected today</p>
+            <div class="memory-card">
+                <i class="fas fa-hands-helping"></i>
+                <h3>Support</h3>
+                <p>Always having each other's backs</p>
             </div>
         </div>
 
-        <div class="main-content">
-            <div class="booking-form">
-                <h2 class="form-title"><i class="fas fa-calendar-plus"></i> New Booking</h2>
-                <form id="bookingForm">
-                    <div class="form-group">
-                        <label for="guestName">Guest Name</label>
-                        <input type="text" id="guestName" placeholder="Enter guest name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="checkIn">Check-in Date</label>
-                        <input type="date" id="checkIn">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="checkOut">Check-out Date</label>
-                        <input type="date" id="checkOut">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="roomType">Room Type</label>
-                        <select id="roomType">
-                            <option value="">Select room type</option>
-                            <option value="standard">Standard Room</option>
-                            <option value="deluxe">Deluxe Room</option>
-                            <option value="suite">Suite</option>
-                            <option value="presidential">Presidential Suite</option>
-                        </select>
-                    </div>
-                    
-                    <button type="button" class="btn" id="bookBtn">Book Now</button>
-                </form>
-            </div>
+        <h2><i class="fas fa-camera"></i> Memory Lane</h2>
+        <div class="photo-gallery">
+            <div class="photo"><i class="fas fa-smile"></i></div>
+            <div class="photo"><i class="fas fa-users"></i></div>
+            <div class="photo"><i class="fas fa-cake"></i></div>
+            <div class="photo"><i class="fas fa-gamepad"></i></div>
+            <div class="photo"><i class="fas fa-mug-hot"></i></div>
+            <div class="photo"><i class="fas fa-award"></i></div>
+        </div>
 
-            <div class="guest-list">
-                <h2 class="form-title"><i class="fas fa-user-friends"></i> Recent Guests</h2>
-                
-                <div class="guest-item">
-                    <div class="guest-info">
-                        <div class="guest-avatar">JD</div>
-                        <div>
-                            <div class="guest-name">John Doe</div>
-                            <div class="guest-room">Room 305 • Deluxe</div>
-                        </div>
-                    </div>
-                    <div class="room-status status-occupied">Occupied</div>
-                </div>
-                
-                <div class="guest-item">
-                    <div class="guest-info">
-                        <div class="guest-avatar">ES</div>
-                        <div>
-                            <div class="guest-name">Emma Smith</div>
-                            <div class="guest-room">Room 212 • Standard</div>
-                        </div>
-                    </div>
-                    <div class="room-status status-occupied">Occupied</div>
-                </div>
-                
-                <div class="guest-item">
-                    <div class="guest-info">
-                        <div class="guest-avatar">RJ</div>
-                        <div>
-                            <div class="guest-name">Robert Johnson</div>
-                            <div class="guest-room">Room 501 • Suite</div>
-                        </div>
-                    </div>
-                    <div class="room-status status-cleaning">Cleaning</div>
-                </div>
-                
-                <div class="guest-item">
-                    <div class="guest-info">
-                        <div class="guest-avatar">SW</div>
-                        <div>
-                            <div class="guest-name">Sarah Wilson</div>
-                            <div class="guest-room">Room 102 • Standard</div>
-                        </div>
-                    </div>
-                    <div class="room-status status-available">Available</div>
-                </div>
+        <div class="message-form">
+            <h2 class="form-title">
+                <i class="fas fa-envelope"></i>
+                Send a Message to Friends
+            </h2>
+            <div class="form-group">
+                <label for="message">Your Message:</label>
+                <textarea id="message" placeholder="Write your message here..."></textarea>
             </div>
+            <button class="btn" id="sendBtn">
+                <i class="fas fa-paper-plane"></i>
+                Send Virtual Hug
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>Made with <i class="fas fa-heart heart"></i> for my Concentrix friends</p>
+            <p>Though we may be apart, you're always in my thoughts</p>
         </div>
     </div>
 
     <script>
         // DOM Elements
-        const bookBtn = document.getElementById('bookBtn');
-        const guestName = document.getElementById('guestName');
-        const checkIn = document.getElementById('checkIn');
-        const checkOut = document.getElementById('checkOut');
-        const roomType = document.getElementById('roomType');
+        const sendBtn = document.getElementById('sendBtn');
+        const messageTextarea = document.getElementById('message');
 
-        // Set default dates for check-in and check-out
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        
-        checkIn.valueAsDate = today;
-        checkOut.valueAsDate = tomorrow;
+        // Array of quotes about friendship and missing someone
+        const quotes = [
+            "The pain of missing you is a beautiful reminder of the joy of our friendship.",
+            "True friends never apart, maybe in distance but never in heart.",
+            "I miss the days when we could just laugh together without a care in the world.",
+            "Distance means so little when someone means so much.",
+            "Some memories are unforgettable, remaining ever vivid and heartwarming.",
+            "I may have left Concentrix, but I'll never leave the friendships we built."
+        ];
 
-        // Booking functionality
-        bookBtn.addEventListener('click', () => {
-            if (guestName.value.trim() === '' || roomType.value === '') {
-                alert('Please fill in all fields');
+        // Array of memory types
+        const memories = [
+            { icon: "fa-utensils", title: "Lunch Times", text: "Sharing meals and stories" },
+            { icon: "fa-brain", title: "Problem Solving", text: "Tackling challenges together" },
+            { icon: "fa-microphone", title: "Team Meetings", text: "Our weekly catchups" },
+            { icon: "fa-music", title: "Office Playlist", text: "Sharing our favorite songs" }
+        ];
+
+        // Function to show a random quote
+        function showRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.querySelector('.quote').textContent = `"${quotes[randomIndex]}"`;
+        }
+
+        // Update quote every 30 seconds
+        setInterval(showRandomQuote, 30000);
+
+        // Send button functionality
+        sendBtn.addEventListener('click', () => {
+            const message = messageTextarea.value.trim();
+            if (message === '') {
+                alert('Please write a message to your friends!');
                 return;
             }
             
-            // In a real application, this would send data to a server
-            alert(`Booking created for ${guestName.value} in a ${roomType.options[roomType.selectedIndex].text} from ${checkIn.value} to ${checkOut.value}`);
+            // In a real application, this would send the message
+            alert(`Your message has been sent virtually to your Concentrix friends!\n\n"${message}"`);
             
-            // Reset form
-            guestName.value = '';
-            roomType.selectedIndex = 0;
+            // Clear the textarea
+            messageTextarea.value = '';
         });
 
-        // Sample room data
-        const rooms = [
-            { number: 101, type: "Standard", status: "available" },
-            { number: 102, type: "Standard", status: "available" },
-            { number: 201, type: "Deluxe", status: "occupied" },
-            { number: 202, type: "Deluxe", status: "cleaning" },
-            { number: 301, type: "Suite", status: "occupied" },
-            { number: 302, type: "Suite", status: "available" },
-            { number: 401, type: "Presidential", status: "occupied" }
-        ];
+        // Add interactivity to memory cards
+        const memoryCards = document.querySelectorAll('.memory-card');
+        memoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const memoryType = card.querySelector('h3').textContent;
+                alert(`Remembering all the ${memoryType} moments at Concentrix!`);
+            });
+        });
 
-        // This function would be used to update room status in a real application
-        function updateRoomStatus(roomNumber, status) {
-            const room = rooms.find(r => r.number === roomNumber);
-            if (room) {
-                room.status = status;
-            }
-        }
+        // Add interactivity to photo gallery
+        const photos = document.querySelectorAll('.photo');
+        photos.forEach(photo => {
+            photo.addEventListener('click', () => {
+                alert('Thanks for the wonderful memories!');
+            });
+        });
+
+        // Initial random quote
+        showRandomQuote();
     </script>
 </body>
 </html>
