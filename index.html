@@ -7,11 +7,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Global Styles */
+        :root {
+            --primary: #64ffda;
+            --secondary: #8892b0;
+            --dark-bg: #0a192f;
+            --darker-bg: #020c1b;
+            --light-text: #ccd6f6;
+            --lighter-text: #e6f1ff;
+            --card-bg: #112240;
+            --navy-shadow: rgba(2, 12, 27, 0.7);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Calibri', 'SF Mono', 'Fira Code', monospace;
         }
 
         html {
@@ -20,8 +31,9 @@
 
         body {
             line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            overflow-x: hidden;
         }
 
         .container {
@@ -32,86 +44,114 @@
         }
 
         section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         h1, h2, h3, h4 {
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: var(--lighter-text);
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
         }
 
         h2 {
-            font-size: 2.5rem;
-            text-align: center;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
             margin-bottom: 50px;
             position: relative;
+            display: inline-block;
+        }
+
+        h2::before {
+            content: '02.';
+            position: relative;
+            left: 0;
+            color: var(--primary);
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-weight: 400;
+            margin-right: 10px;
         }
 
         h2::after {
             content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: #3498db;
+            display: block;
+            position: relative;
+            top: -5px;
+            width: 300px;
+            height: 1px;
+            margin-left: 20px;
+            background-color: var(--secondary);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            white-space: nowrap;
         }
 
         p {
             margin-bottom: 15px;
             font-size: 1.1rem;
+            color: var(--secondary);
+            line-height: 1.6;
         }
 
         .btn {
             display: inline-block;
-            padding: 12px 30px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
+            font-family: 'SF Mono', 'Fira Code', monospace;
         }
 
         .btn:hover {
-            background: #2980b9;
+            background: rgba(100, 255, 218, 0.1);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-filled {
+            background: var(--primary);
+            color: var(--darker-bg);
+        }
+
+        .btn-filled:hover {
+            background: rgba(100, 255, 218, 0.9);
         }
 
         /* Header & Navigation */
         header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            height: 70px;
+            display: flex;
+            align-items: center;
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            width: 100%;
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .logo span {
-            color: #3498db;
+            color: var(--primary);
         }
 
         .nav-links {
@@ -125,19 +165,27 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--light-text);
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 0.9rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
         }
 
         .nav-links a:hover {
-            color: #3498db;
+            color: var(--primary);
+        }
+
+        .nav-links a span {
+            color: var(--primary);
+            margin-right: 5px;
         }
 
         .menu-toggle {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--primary);
         }
 
         /* Hero Section */
@@ -145,351 +193,252 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
+            background: var(--darker-bg);
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-        }
-
         .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 1000px;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 5px;
+            color: var(--lighter-text);
+        }
+
+        .hero h2 {
+            font-size: clamp(1.5rem, 3vw, 3rem);
+            color: var(--secondary);
             margin-bottom: 20px;
-            color: white;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: #f8f9fa;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
         }
 
         .hero-btns {
             display: flex;
-            justify-content: center;
             gap: 20px;
-        }
-
-        .hero-btns .btn {
-            background: transparent;
-            border: 2px solid white;
-        }
-
-        .hero-btns .btn-filled {
-            background: #3498db;
-            border: 2px solid #3498db;
         }
 
         /* About Section */
         .about {
-            background: white;
+            background: var(--dark-bg);
         }
 
         .about-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-image {
-            flex: 1;
-            text-align: center;
-        }
-
-        .about-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* Skills Section */
-        .skills {
-            background: #f8f9fa;
-        }
-
-        .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-category {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-10px);
-        }
-
-        .skill-category h3 {
-            color: #3498db;
-            margin-bottom: 20px;
-            display: flex;
+            grid-template-columns: 3fr 2fr;
+            gap: 50px;
             align-items: center;
         }
 
-        .skill-category h3 i {
-            margin-right: 10px;
+        .about-text p {
+            margin-bottom: 20px;
         }
 
-        .skill-list {
-            list-style: none;
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
         }
 
-        .skill-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
+        .skills-list li {
+            color: var(--secondary);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
             position: relative;
+            padding-left: 20px;
+            margin-bottom: 5px;
         }
 
-        .skill-list li::before {
+        .skills-list li::before {
             content: '▹';
             position: absolute;
             left: 0;
-            color: #3498db;
+            color: var(--primary);
         }
 
         /* Experience Section */
         .experience {
-            background: white;
+            background: var(--darker-bg);
         }
 
         .timeline {
             position: relative;
             max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: #3498db;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
         }
 
         .timeline-item {
-            padding: 10px 40px;
+            margin-bottom: 50px;
             position: relative;
-            width: 50%;
-            box-sizing: border-box;
+            padding-left: 30px;
         }
 
-        .timeline-item:nth-child(odd) {
+        .timeline-item::before {
+            content: '';
+            position: absolute;
             left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
+            top: 10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
         }
 
         .timeline-content {
-            padding: 20px 30px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px -15px var(--navy-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
         }
 
         .timeline-date {
-            font-weight: bold;
-            color: #3498db;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
         }
 
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 4px solid #3498db;
-            border-radius: 50%;
-            top: 15px;
-            z-index: 1;
+        .timeline-content h3 {
+            color: var(--lighter-text);
+            margin-bottom: 10px;
         }
 
-        .timeline-item:nth-child(odd)::after {
-            right: -10px;
+        .timeline-content ul {
+            padding-left: 20px;
         }
 
-        .timeline-item:nth-child(even)::after {
-            left: -10px;
+        .timeline-content li {
+            margin-bottom: 8px;
+            color: var(--secondary);
         }
 
         /* Projects Section */
         .projects {
-            background: #f8f9fa;
+            background: var(--dark-bg);
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
             gap: 30px;
         }
 
         .project-card {
-            background: white;
-            border-radius: 10px;
+            background: var(--card-bg);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 30px -15px var(--navy-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-7px);
         }
 
-        .project-image {
-            height: 200px;
-            background: #3498db;
+        .project-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
+            padding: 25px 25px 10px;
+        }
+
+        .project-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-icons a {
+            color: var(--light-text);
+            transition: color 0.3s;
+        }
+
+        .project-icons a:hover {
+            color: var(--primary);
         }
 
         .project-content {
-            padding: 20px;
+            padding: 0 25px 20px;
+            flex-grow: 1;
         }
 
         .project-content h3 {
-            color: #2c3e50;
-            margin-bottom: 10px;
+            color: var(--lighter-text);
+            margin-bottom: 15px;
+        }
+
+        .project-content p {
+            margin-bottom: 20px;
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 15px 0;
+            margin-top: auto;
+            padding-top: 20px;
         }
 
         .project-tag {
-            background: #eaf2f8;
-            color: #3498db;
-            padding: 5px 10px;
-            border-radius: 20px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
             font-size: 0.8rem;
+            color: var(--secondary);
         }
 
         /* Contact Section */
         .contact {
-            background: white;
+            background: var(--darker-bg);
+            text-align: center;
         }
 
-        .contact-container {
-            display: flex;
-            gap: 50px;
-        }
-
-        .contact-info {
-            flex: 1;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: #3498db;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        .contact-form {
-            flex: 1;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
+        .contact p {
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 0;
+            background: var(--dark-bg);
+            padding: 30px 0;
             text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             margin: 20px 0;
         }
 
         .social-links a {
-            color: white;
-            font-size: 1.5rem;
+            color: var(--light-text);
+            font-size: 1.3rem;
             transition: color 0.3s;
         }
 
         .social-links a:hover {
-            color: #3498db;
+            color: var(--primary);
         }
 
         .copyright {
             margin-top: 20px;
             font-size: 0.9rem;
-            opacity: 0.7;
+            color: var(--secondary);
         }
 
         /* Responsive Design */
@@ -504,7 +453,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
-                background: white;
+                background: var(--card-bg);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -517,46 +466,24 @@
             }
 
             .nav-links li {
-                margin: 15px 0;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
+                margin: 20px 0;
             }
 
             .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2::after {
+                width: 150px;
+            }
+
+            .hero-btns {
                 flex-direction: column;
-            }
-
-            .timeline::after {
-                left: 31px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-
-            .timeline-item::after {
-                left: 21px;
-            }
-
-            .timeline-item:nth-child(odd)::after,
-            .timeline-item:nth-child(even)::after {
-                left: 21px;
-            }
-
-            .contact-container {
-                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -566,17 +493,16 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Vishnu<span>Kushwaha</span></div>
+                <div class="logo">VK</div>
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home"><span>01.</span> Home</a></li>
+                    <li><a href="#about"><span>02.</span> About</a></li>
+                    <li><a href="#experience"><span>03.</span> Experience</a></li>
+                    <li><a href="#projects"><span>04.</span> Projects</a></li>
+                    <li><a href="#contact"><span>05.</span> Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -586,12 +512,12 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Vishnu Kushwaha</h1>
-                <p>Cloud Support & DevOps Professional</p>
-                <p>Motivated IT professional skilled in technical support and security with hands-on AWS project experience</p>
+                <p style="color: var(--primary); font-family: 'SF Mono', 'Fira Code', monospace; margin-bottom: 20px;">Hi, my name is</p>
+                <h1>Vishnu Kushwaha.</h1>
+                <h2>I build things for the cloud.</h2>
+                <p>I'm a cloud support and DevOps professional specializing in building scalable infrastructure and automated solutions. Currently, I'm focused on transitioning into DevOps roles and expanding my expertise in cloud technologies.</p>
                 <div class="hero-btns">
-                    <a href="#projects" class="btn btn-filled">View My Work</a>
-                    <a href="#contact" class="btn">Get In Touch</a>
+                    <a href="#projects" class="btn">Check out my projects</a>
                 </div>
             </div>
         </div>
@@ -600,229 +526,13 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2>About Me</h2>
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I am a motivated IT professional with expertise in technical support and security, currently transitioning into Cloud Support and DevOps roles. With hands-on experience in AWS projects, I'm passionate about building scalable, efficient cloud solutions.</p>
-                    <p>My background includes troubleshooting complex technical issues, ensuring data security compliance, and improving operational processes. I'm now focused on leveraging my skills in cloud platforms and DevOps methodologies to contribute to innovative technology solutions.</p>
-                    <p>When I'm not coding or working on cloud projects, I enjoy playing chess to enhance my strategic thinking and practicing meditation to maintain focus in high-pressure situations.</p>
-                    <a href="CloudResume.pdf" class="btn" download>Download Resume</a>
-                </div>
-                <div class="about-image">
-                    <!-- Placeholder for profile image -->
-                    <div style="width: 300px; height: 300px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 5rem; margin: 0 auto;">
-                        VK
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2>Technical Skills</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><i class="fas fa-cloud"></i> Cloud Platforms</h3>
-                    <ul class="skill-list">
-                        <li>AWS (EC2, S3, Lambda, CloudFormation, IAM)</li>
-                        <li>Cloud Infrastructure Management</li>
-                        <li>Serverless Architecture</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-code-branch"></i> DevOps & Tools</h3>
-                    <ul class="skill-list">
-                        <li>Git, GitHub</li>
-                        <li>Docker, Kubernetes</li>
-                        <li>CI/CD Pipelines</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-shield-alt"></i> Security</h3>
-                    <ul class="skill-list">
-                        <li>IAM & Access Management</li>
-                        <li>Data Protection & Compliance</li>
-                        <li>Multi-Factor Authentication (MFA)</li>
-                        <li>KMS</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-network-wired"></i> Networking</h3>
-                    <ul class="skill-list">
-                        <li>TCP/IP, DNS, DHCP</li>
-                        <li>VPN Concepts</li>
-                        <li>Remote Assistance Tools</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Systems & Tools</h3>
-                    <ul class="skill-list">
-                        <li>Ticketing Systems (Remedy, Jira, ServiceNow)</li>
-                        <li>Windows & Linux Administration</li>
-                        <li>Technical Troubleshooting</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2>Work Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Sr. Representative, Operations</h3>
-                        <p class="timeline-date">Sept 2022 - Sept 2025</p>
-                        <p><strong>Concentrix Services Pvt. Ltd.</strong></p>
-                        <ul>
-                            <li>Diagnosed and resolved complex internet outages and service disruptions</li>
-                            <li>Implemented secure customer verification processes adhering to Data Protection Act guidelines</li>
-                            <li>Achieved high CSAT scores and First Time Resolution rates</li>
-                            <li>Managed end-to-end ticket resolution using Remedy ticketing system</li>
-                            <li>Implemented Multi-Factor Authentication for enhanced security</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-ticket-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Cloud-Native Ticketing System</h3>
-                        <p>Designed and implemented an automated deployment pipeline on AWS integrated with GitHub for continuous testing and deployment.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">AWS</span>
-                            <span class="project-tag">EC2</span>
-                            <span class="project-tag">S3</span>
-                            <span class="project-tag">Lambda</span>
-                            <span class="project-tag">CI/CD</span>
-                        </div>
-                        <p><strong>Result:</strong> Reduced deployment time by 40% and improved system reliability.</p>
-                        <a href="https://vishnu063.github.io/my-ticketing-system/" class="btn" target="_blank">Live Demo</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Get In Touch</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h3>Phone</h3>
-                            <p>+91 9579315351</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h3>Email</h3>
-                            <p>Kushwahavr19@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Location</h3>
-                            <p>Vijay Nagar, Pune - 412307</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/Vishnu063/my-ticketing-system" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="www.linkedin.com/in/vishnu-kushwaha-64300916b" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/Vishnu063/my-ticketing-system" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="www.linkedin.com/in/vishnu-kushwaha-64300916b" target="_blank"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <p class="copyright">&copy; 2023 Vishnu Kushwaha. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
-            });
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
-            this.reset();
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-            } else {
-                header.style.background = 'white';
-                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-            }
-        });
-    </script>
-</body>
-</html>
+                    <p>Hello! I'm Vishnu, a motivated IT professional with expertise in technical support and security, currently transitioning into Cloud Support and DevOps roles. My journey in technology started with a passion for problem-solving and has evolved into a focus on cloud infrastructure and automation.</p>
+                    <p>I have hands-on experience with AWS services and DevOps tools, and I enjoy creating efficient, scalable solutions. When I'm not at the computer, I'm probably playing chess to sharpen my strategic thinking or meditating to maintain focus in high-pressure situations.</p>
+                    <p>Here are a few technologies I've been working with recently:</p>
+                    <ul class="skills-list">
+                        <li>AWS (EC2, S3, Lambda)</li>
